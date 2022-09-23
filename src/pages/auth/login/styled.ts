@@ -48,5 +48,5 @@ export const ButtonWrapper = styled.div`
 `
 
 export const FooterInfoWrapper = styled(Typography)`
-  font-size: 1.2;
+  font-size: 1.4rem;
 `

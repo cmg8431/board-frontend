@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import { TypographyType } from '.'
 
 export const TypographyElement = styled.p<{ type: TypographyType }>`
+  letter-spacing: -0.8;
   ${(props) => {
     switch (props.type) {
       case 'bold':

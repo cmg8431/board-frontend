@@ -9,6 +9,14 @@ interface TypographyProps {
   children: React.ReactNode
 }
 
-export const Typography: React.FC<TypographyProps> = ({ type, children }) => {
-  return <S.TypographyElement type={type}>{children}</S.TypographyElement>
+export const Typography: React.FC<TypographyProps> = ({
+  type,
+  children,
+  ...props
+}) => {
+  return (
+    <S.TypographyElement type={type} {...props}>
+      {children}
+    </S.TypographyElement>
+  )
 }

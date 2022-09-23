@@ -20,6 +20,7 @@ export const ErrorMessage = styled.div`
   color: red;
 `
 export const Label = styled.label`
+  font-size: 1.35rem;
   color: #3a4b51;
   display: inline-block;
   padding: 5px 0;

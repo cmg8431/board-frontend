@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const API_SUFFIX = {
-  BASEURL: '/api/',
+  BASE_URL: 'http://localhost:8000/api',
   USERS: '/users/',
   PROFILE: '/users/profile/',
   REFRESH: '/auth/refresh/',
@@ -10,7 +10,7 @@ export const API_SUFFIX = {
 }
 
 export const instance = axios.create({
-  baseURL: API_SUFFIX.BASEURL,
+  baseURL: API_SUFFIX.BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -21,12 +21,14 @@ export type APIResponseStatusType = 'SUCCESS' | 'FAILED'
 
 export interface APIResponse<T = unknown> {
   status: APIResponseStatusType
+  status_code: number
   message: string
   result: T
 }
 
 export interface APIErrorResponse {
   status: 'FAILED'
+  status_code: number
   message: string
   result?: null
 }

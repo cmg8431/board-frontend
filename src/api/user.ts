@@ -16,10 +16,33 @@ export interface UserProfileResponse {
   birth: string
 }
 
+export interface RegisterFormValues {
+  username: string
+  password: string
+  name: string
+  nickname: string
+  phone_number: string
+  sms_code: string
+  password_check: string
+}
+
+export type RegsiterValues = Omit<
+  RegisterFormValues,
+  'password_check' | 'sms_code'
+>
+
 export const login = async (
   payload: LoginFormValues
 ): Promise<APIResponse<{ access: string; refresh: string }>> => {
   const { data } = await instance.post(API_SUFFIX.LOGIN, payload)
+  return data
+}
+
+export const register = async (payload: RegsiterValues) => {
+  const { data } = await instance.post(API_SUFFIX.REGISTER, {
+    ...payload,
+    photo: null,
+  })
   return data
 }
 

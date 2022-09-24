@@ -5,18 +5,9 @@ import { AppLayout } from '~/components'
 import { TextField } from '~/components/TextField'
 import { Button } from '~/components/Button'
 import { Link } from 'react-router-dom'
-import { checkSmsCode, sendSms } from '~/api'
+import { checkSmsCode, RegisterFormValues, sendSms } from '~/api'
 import { toast } from 'react-toastify'
-
-interface RegisterFormValues {
-  username: string
-  password: string
-  name: string
-  nickname: string
-  phone_number: string
-  sms_code: string
-  password_check: string
-}
+import { useRegister } from '~/hook'
 
 export const RegisterPage: React.FC = () => {
   const {
@@ -25,11 +16,14 @@ export const RegisterPage: React.FC = () => {
     formState: { errors },
     watch,
   } = useForm<RegisterFormValues>()
+
+  const { signup, isLoading } = useRegister()
+
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
 
   const onSubmit = (props: RegisterFormValues) => {
-    console.log(props)
+    signup(props)
   }
 
   const handleOnPressSmsCode = () => {

@@ -5,8 +5,8 @@ export const API_SUFFIX = {
   USERS: '/users/',
   USER_PROFILE: '/users/profile/',
   REFRESH: '/auth/refresh/',
-  LOGIN: '/auth/login/',
-  REGISTER: '/auth/register/',
+  LOGIN: '/login/',
+  REGISTER: '/register/',
   SEND_SMS: '/sms',
   CHECK_SMS_CODE: '/sms/verify',
 }

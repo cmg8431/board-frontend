@@ -9,14 +9,15 @@ interface TextFieldProps extends TextFieldType {
   label?: string
   error?: string
   children?: React.ReactNode
+  placeholder?: string
 }
 
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ label, error, children, ...options }, ref) => (
+  ({ label, placeholder, error, children, ...options }, ref) => (
     <>
       <S.Label>{label}</S.Label>
       <div style={{ display: 'flex' }}>
-        <S.InputElement ref={ref} {...options} />
+        <S.InputElement placeholder={placeholder} ref={ref} {...options} />
         {children}
       </div>
       <S.ErrorMessage>{error}</S.ErrorMessage>

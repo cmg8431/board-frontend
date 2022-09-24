@@ -1,13 +1,12 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { LoginPage, RegisterPage } from './pages'
-import { globalAccessTokenState } from './store/user'
+import { BoardPage, LoginPage, RegisterPage } from './pages'
 
 export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route index element={<BoardPage />} />
         <Route path="auth">
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />

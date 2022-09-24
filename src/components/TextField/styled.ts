@@ -13,6 +13,9 @@ export const InputElement = styled.input`
   :focus {
     box-shadow: inset 0 0 0 1px #1bc8ff;
   }
+  ::placeholder {
+    color: #dcdfe0;
+  }
 `
 
 export const ErrorMessage = styled.div`

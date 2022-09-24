@@ -31,3 +31,21 @@ export const getUserProfile = async (): Promise<
   )
   return data
 }
+
+export const sendSms = async (phone_number: string): Promise<APIResponse> => {
+  const { data } = await instance.post<APIResponse>(API_SUFFIX.SEND_SMS, {
+    phone_number,
+  })
+  return data
+}
+
+export const checkSmsCode = async (
+  phone_number: string,
+  auth_code: string
+): Promise<APIResponse> => {
+  const { data } = await instance.post<APIResponse>(API_SUFFIX.CHECK_SMS_CODE, {
+    auth_code,
+    phone_number,
+  })
+  return data
+}

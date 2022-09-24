@@ -5,6 +5,8 @@ import { AppLayout } from '~/components'
 import { TextField } from '~/components/TextField'
 import { Button } from '~/components/Button'
 import { Link } from 'react-router-dom'
+import { checkSmsCode, sendSms } from '~/api'
+import { toast } from 'react-toastify'
 
 interface RegisterFormValues {
   username: string
@@ -32,6 +34,25 @@ export const RegisterPage: React.FC = () => {
 
   const handleOnPressSmsCode = () => {
     setMinutes(5)
+    sendSms(watch('phone_number'))
+  }
+
+  const handleOnPressVerifySmsCode = () => {
+    try {
+      setMinutes(0)
+      checkSmsCode(watch('phone_number'), watch('sms_code'))
+      toast.success('전화번호 인증에 성공하셨습니다.', {
+        autoClose: 3000,
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'light',
+      })
+    } catch (err) {
+      toast.error('번호가 잘못된 것 같아요! 다시 한번 확인해주세요 :)', {
+        autoClose: 3000,
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'light',
+      })
+    }
   }
 
   useEffect(() => {
@@ -161,6 +182,7 @@ export const RegisterPage: React.FC = () => {
             >
               <Button
                 variant="outlined"
+                onClick={handleSubmit(handleOnPressVerifySmsCode)}
                 style={{
                   flexShrink: 0,
                   marginLeft: '10px',

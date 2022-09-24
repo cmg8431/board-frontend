@@ -31,10 +31,18 @@ export type RegsiterValues = Omit<
   'password_check' | 'sms_code'
 >
 
+export interface LoginResponse {
+  access: string
+  refresh: string
+}
+
 export const login = async (
   payload: LoginFormValues
-): Promise<APIResponse<{ access: string; refresh: string }>> => {
-  const { data } = await instance.post(API_SUFFIX.LOGIN, payload)
+): Promise<APIResponse<LoginResponse>> => {
+  const { data } = await instance.post<APIResponse<LoginResponse>>(
+    API_SUFFIX.LOGIN,
+    payload
+  )
   return data
 }
 
@@ -70,5 +78,14 @@ export const checkSmsCode = async (
     auth_code,
     phone_number,
   })
+  return data
+}
+
+export const issueAccessToken = async (refresh: string) => {
+  const { data } = await instance.post<APIResponse<LoginResponse>>(
+    API_SUFFIX.AUTH_REFRESH,
+    { refresh }
+  )
+
   return data
 }

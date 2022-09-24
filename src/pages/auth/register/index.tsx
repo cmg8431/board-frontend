@@ -4,10 +4,10 @@ import * as S from './styled'
 import { AppLayout } from '~/components'
 import { TextField } from '~/components/TextField'
 import { Button } from '~/components/Button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { checkSmsCode, RegisterFormValues, sendSms } from '~/api'
 import { toast } from 'react-toastify'
-import { useRegister } from '~/hook'
+import { useLogin, useRegister } from '~/hook'
 
 export const RegisterPage: React.FC = () => {
   const {
@@ -17,7 +17,8 @@ export const RegisterPage: React.FC = () => {
     watch,
   } = useForm<RegisterFormValues>()
 
-  const { signup, isLoading } = useRegister()
+  const { signup, profile, isLoading } = useRegister()
+  const navigate = useNavigate()
 
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
@@ -68,6 +69,12 @@ export const RegisterPage: React.FC = () => {
 
   const password = useRef({})
   password.current = watch('password', '')
+
+  useEffect(() => {
+    if (profile && !isLoading) {
+      navigate('/')
+    }
+  }, [profile, isLoading])
 
   return (
     <AppLayout>

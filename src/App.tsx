@@ -1,6 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
 
 import { LoginPage, RegisterPage } from './pages'
+import { globalAccessTokenState } from './store/user'
 
 export const App = () => {
   return (

@@ -3,12 +3,13 @@ import axios from 'axios'
 export const API_SUFFIX = {
   BASE_URL: 'http://localhost:8000/api',
   USERS: '/users/',
-  USER_PROFILE: '/users/profile/',
+  USER_PROFILE: '/profile/',
   REFRESH: '/auth/refresh/',
   LOGIN: '/login/',
   REGISTER: '/register/',
   SEND_SMS: '/sms',
   CHECK_SMS_CODE: '/sms/verify',
+  AUTH_REFRESH: '/auth/refresh/',
 }
 
 export const instance = axios.create({

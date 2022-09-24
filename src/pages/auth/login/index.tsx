@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import * as S from './styled'
 
@@ -6,6 +6,8 @@ import { AppLayout } from '~/components'
 import { TextField } from '~/components/TextField'
 import { Button } from '~/components/Button'
 import { LoginFormValues } from '~/api'
+import { useLogin } from '~/hook'
+import { useNavigate } from 'react-router-dom'
 
 export const LoginPage: React.FC = () => {
   const {
@@ -14,9 +16,18 @@ export const LoginPage: React.FC = () => {
     formState: { errors },
   } = useForm<LoginFormValues>()
 
+  const { signin, profile, isLoading } = useLogin()
+  const navigate = useNavigate()
+
   const onSubmit = (props: LoginFormValues) => {
-    console.log(props)
+    signin(props)
   }
+
+  useEffect(() => {
+    if (profile && !isLoading) {
+      navigate('/')
+    }
+  }, [profile, isLoading])
 
   return (
     <AppLayout>
@@ -37,7 +48,7 @@ export const LoginPage: React.FC = () => {
             })}
           />
           <TextField
-            type="text"
+            type="password"
             label="비밀번호"
             error={errors.password?.message}
             {...register('password', {

@@ -4,6 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ToastContainer } from 'react-toastify'
 import { injectStyle } from 'react-toastify/dist/inject-style'
+import { RecoilRoot } from 'recoil'
 
 import { App } from './App'
 import { globalStyles } from './styles'
@@ -24,10 +25,12 @@ const root = ReactDOM.createRoot(document.getElementById('app') as HTMLElement)
 
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Global styles={globalStyles} />
-      <App />
-      <ToastContainer />
-    </QueryClientProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <Global styles={globalStyles} />
+        <App />
+        <ToastContainer />
+      </QueryClientProvider>
+    </RecoilRoot>
   </React.StrictMode>
 )

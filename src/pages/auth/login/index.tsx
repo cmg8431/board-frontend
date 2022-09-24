@@ -5,11 +5,7 @@ import * as S from './styled'
 import { AppLayout } from '~/components'
 import { TextField } from '~/components/TextField'
 import { Button } from '~/components/Button'
-
-type LoginFormValues = {
-  username: string
-  password: string
-}
+import { LoginFormValues } from '~/api'
 
 export const LoginPage: React.FC = () => {
   const {

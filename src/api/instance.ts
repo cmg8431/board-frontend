@@ -3,7 +3,7 @@ import axios from 'axios'
 export const API_SUFFIX = {
   BASE_URL: 'http://localhost:8000/api',
   USERS: '/users/',
-  PROFILE: '/users/profile/',
+  USER_PROFILE: '/users/profile/',
   REFRESH: '/auth/refresh/',
   LOGIN: '/auth/login/',
   REGISTER: '/auth/register/',
@@ -33,7 +33,7 @@ export interface APIErrorResponse {
   result?: null
 }
 
-export const setAccessToken = (token: string | null) => {
+export const setAPIAccessToken = (token: string | null) => {
   if (token) {
     instance.defaults.headers.common.Authorization = `Bearer ${token}`
   } else {

@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { AppLayout, TextField } from '~/components'
 import * as S from './styled'
+import dayjs from 'dayjs'
 
 import { useLogin } from '~/hook'
 import { Button } from '~/components/Button'
 import { useNavigate } from 'react-router-dom'
+import { useAllPost } from '~/hook/query/usePost'
 
 export const BoardPage: React.FC = () => {
   const { profile, isLoading } = useLogin()
   const navigate = useNavigate()
   const [input, setInput] = useState<string>('')
 
-  //   const filtered =
-  //     !isFetching && product !== undefined && product?.result.length > 0
-  //       ? product?.result.filter((itemList) => {
-  //           return itemList.product_name
-  //             .toUpperCase()
-  //             .includes(input.toUpperCase())
-  //         })
-  //       : null
+  const { data: post } = useAllPost()
+
+  const filtered = post?.filter((v: { title: string }) => {
+    return v.title.toUpperCase().includes(input.toUpperCase())
+  })
 
   useEffect(() => {
     if (profile && !isLoading) {
@@ -49,23 +48,59 @@ export const BoardPage: React.FC = () => {
           onChange={(e) => setInput(e.target.value)}
         />
       </div>
-      {Array.from(Array(15).keys()).map(() => {
-        return (
-          <S.PostBoxContainer>
-            <S.PostHeadContainer>
-              <div>
-                <img />
-              </div>
-              <S.PostHeadInfoContainer>
-                <S.PostHeadTitle>제목입니다</S.PostHeadTitle>
-              </S.PostHeadInfoContainer>
-            </S.PostHeadContainer>
-            <S.PostHeadDescription type="regular">
-              이것은 대욱게시판입니다
-            </S.PostHeadDescription>
-          </S.PostBoxContainer>
-        )
-      })}
+      <S.PostMainContainer>
+        {filtered?.map(
+          (post: {
+            category: ReactNode
+            title:
+              | string
+              | number
+              | boolean
+              | React.ReactElement<
+                  any,
+                  string | React.JSXElementConstructor<any>
+                >
+              | React.ReactFragment
+              | React.ReactPortal
+              | null
+              | undefined
+            author: {
+              nickname:
+                | string
+                | number
+                | boolean
+                | React.ReactElement<
+                    any,
+                    string | React.JSXElementConstructor<any>
+                  >
+                | React.ReactFragment
+                | React.ReactPortal
+                | null
+                | undefined
+            }
+            created_at: Date
+          }) => {
+            return (
+              <S.PostBoxContainer>
+                <S.PostHeadContainer>
+                  <div>
+                    <img />
+                  </div>
+                  <S.PostHeadInfoContainer>
+                    <S.PostHeadTitle>{post.title}</S.PostHeadTitle>
+                  </S.PostHeadInfoContainer>
+                </S.PostHeadContainer>
+                <S.PostHeadDescription type="regular">
+                  <div>{post.author.nickname}</div>
+                  <div>
+                    {post.category}, {dayjs(post.created_at).format('YY-MM-DD')}
+                  </div>
+                </S.PostHeadDescription>
+              </S.PostBoxContainer>
+            )
+          }
+        )}
+      </S.PostMainContainer>
       <S.FooterPostCreateWrapper>
         <Button
           style={{ height: '5.3rem', borderRadius: '100rem' }}

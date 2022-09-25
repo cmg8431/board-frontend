@@ -1,9 +1,11 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useRecoilState } from 'recoil'
 import { APIErrorResponse } from '~/api'
-import { post } from '~/api/post'
+import { createPost, post } from '~/api/post'
+import { globalAccessTokenState } from '~/store/user'
 import { useProfile } from './userAuth'
 
 export const useCreatePost = () => {
@@ -14,10 +16,10 @@ export const useCreatePost = () => {
     any,
     AxiosError<APIErrorResponse>,
     any
-  >(['useRegister'], post, {
+  >(['useCreatePost'], createPost, {
     onSuccess: () => {
       navigate('/')
-      toast.success('회원가입에 성공하셨어요!', {
+      toast.success('게시물 생성에 성공하셨어요!', {
         autoClose: 3000,
         position: toast.POSITION.BOTTOM_RIGHT,
         theme: 'dark',
@@ -33,5 +35,22 @@ export const useCreatePost = () => {
     retry: 0,
   })
 
+  useAllPost()
   return { post: mutate, profile, ...mutations }
+}
+
+export const useAllPost = () => {
+  return useQuery(
+    ['useAllPost'],
+    async () => {
+      const { result } = await post()
+      return result
+    },
+    {
+      onError: (error: any) => {
+        console.log(error)
+      },
+      retry: 0,
+    }
+  )
 }

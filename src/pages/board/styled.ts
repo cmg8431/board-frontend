@@ -15,6 +15,19 @@ export const CategoryCotainer = styled.div`
   display: flex;
 `
 
+export const PostHeadDescriptionPre = styled.pre`
+  margin: 0rem;
+  & > p {
+    margin: 0rem;
+  }
+`
+
+export const PostMainContainer = styled.div`
+  max-height: 56rem;
+  padding: 1.5rem;
+  overflow: auto;
+`
+
 export const Category = styled.div`
   margin-right: 0.5rem;
   font-size: 1.6rem;
@@ -38,10 +51,15 @@ export const PostHeadTitle = styled.div`
   margin-right: 1rem;
 `
 export const PostHeadDescription = styled(Typography)`
-  font-size: 1.35rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   margin: 0rem;
-  color: #3a4b51;
-  letter-spacing: -0.03rem;
+  & > div {
+    font-size: 1.35rem;
+    color: #3a4b51;
+    letter-spacing: -0.03rem;
+  }
 `
 
 export const PostBoxContainer = styled.div`

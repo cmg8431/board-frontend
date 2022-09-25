@@ -1,11 +1,20 @@
 import React, { useRef, useState } from 'react'
-import { post } from '~/api/post'
 import { AppLayout, TextField, Typography } from '~/components'
 import { QuillEditor } from '~/components'
 import { Button } from '~/components/Button'
 import { Radio } from '~/components/Radio'
 import { RadioGroup } from '~/components/RadioGroup'
+import { useCreatePost } from '~/hook/query/usePost'
 import * as S from './styled'
+
+export type CategoryType = {
+  [key: string]: string | undefined
+}
+
+export const CATEGORY_PART: CategoryType = {
+  true: 'public',
+  false: 'privacy',
+} as const
 
 export const CreatePostPage: React.FC = () => {
   const quillRef = useRef()
@@ -15,7 +24,7 @@ export const CreatePostPage: React.FC = () => {
   const [title, setTitle] = useState<string>('')
   const [toggle, setToggle] = useState<boolean>(false)
   const [category, setCategory] = useState<any>('EMAIL')
-
+  const { post, profile, isLoading } = useCreatePost()
   const clickedToggle = () => {
     setToggle((prev) => !prev)
   }
@@ -25,8 +34,8 @@ export const CreatePostPage: React.FC = () => {
       title: title,
       content: htmlContent,
       category: category,
-      photo: form,
-      status: toggle,
+      photo: null,
+      status: CATEGORY_PART[toggle.toString()],
     })
   }
 
@@ -59,12 +68,10 @@ export const CreatePostPage: React.FC = () => {
                 value={category}
                 onChange={setCategory}
               >
-                <Radio value="EMAIL">이메일</Radio>
-                <Radio value="PHONE">전화</Radio>
-                <Radio value="FAX">팩스</Radio>
-                <Radio value="MAIL" disabled>
-                  우편
-                </Radio>
+                <Radio value="etc">기타</Radio>
+                <Radio value="game">게임</Radio>
+                <Radio value="study">공부</Radio>
+                <Radio value="develop">개발</Radio>
               </RadioGroup>
             </td>
           </tr>

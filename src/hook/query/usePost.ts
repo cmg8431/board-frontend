@@ -1,11 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useRecoilState } from 'recoil'
 import { APIErrorResponse } from '~/api'
-import { createPost, post } from '~/api/post'
-import { globalAccessTokenState } from '~/store/user'
+import { createPost, getDetailPost, post } from '~/api/post'
 import { useProfile } from './userAuth'
 
 export const useCreatePost = () => {
@@ -44,6 +42,24 @@ export const useAllPost = () => {
     ['useAllPost'],
     async () => {
       const { result } = await post()
+      return result
+    },
+    {
+      onError: (error: any) => {
+        console.log(error)
+      },
+      retry: 0,
+    }
+  )
+}
+
+export const useDetailPost = () => {
+  const location = useLocation()
+
+  return useQuery(
+    ['useDetailPost'],
+    async () => {
+      const { result } = await getDetailPost(location.state)
       return result
     },
     {

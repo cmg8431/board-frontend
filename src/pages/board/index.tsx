@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { AppLayout, TextField } from '~/components'
 import * as S from './styled'
 import dayjs from 'dayjs'
@@ -18,12 +18,6 @@ export const BoardPage: React.FC = () => {
   const filtered = post?.filter((v: { title: string }) => {
     return v.title.toUpperCase().includes(input.toUpperCase())
   })
-
-  useEffect(() => {
-    if (profile && !isLoading) {
-      console.log('하이')
-    }
-  }, [profile, isLoading])
 
   return (
     <AppLayout padding={{ padding: '20px 0' }}>
@@ -51,6 +45,7 @@ export const BoardPage: React.FC = () => {
       <S.PostMainContainer>
         {filtered?.map(
           (post: {
+            id: string
             category: ReactNode
             title:
               | string
@@ -81,7 +76,9 @@ export const BoardPage: React.FC = () => {
             created_at: Date
           }) => {
             return (
-              <S.PostBoxContainer>
+              <S.PostBoxContainer
+                onClick={() => navigate('/post', { state: post.id })}
+              >
                 <S.PostHeadContainer>
                   <div>
                     <img />

@@ -13,7 +13,7 @@ export type CategoryType = {
 
 export const CATEGORY_PART: CategoryType = {
   true: 'public',
-  false: 'privacy',
+  false: 'private',
 } as const
 
 export const CreatePostPage: React.FC = () => {
@@ -24,7 +24,7 @@ export const CreatePostPage: React.FC = () => {
   const [title, setTitle] = useState<string>('')
   const [toggle, setToggle] = useState<boolean>(false)
   const [category, setCategory] = useState<any>('EMAIL')
-  const { post, profile, isLoading } = useCreatePost()
+  const { post } = useCreatePost()
   const clickedToggle = () => {
     setToggle((prev) => !prev)
   }

@@ -13,3 +13,10 @@ export const post = async () => {
   const { data } = await instance.get<APIResponse<any>>(API_SUFFIX.POST)
   return data
 }
+
+export const getDetailPost = async (pk: any) => {
+  const { data } = await instance.get<APIResponse<any>>(
+    `${API_SUFFIX.POST}${pk}/`
+  )
+  return data
+}

@@ -4,8 +4,6 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 
 import {
   APIErrorResponse,
-  APIResponse,
-  APIResponseStatusType,
   getUserProfile,
   issueAccessToken,
   login,
@@ -41,7 +39,7 @@ export const useLogin = () => {
     return await getCredentialsByLogin(parameter)
   }
 
-  const login = async (parameter: LoginFormValues) => {
+  const queryLogin = async (parameter: LoginFormValues) => {
     const { access, refresh } = await getCredentials(parameter)
     if (access === null || refresh === null) {
       throw new Error('소셜 로그인에 실패했어요')
@@ -58,7 +56,7 @@ export const useLogin = () => {
     string,
     AxiosError<APIErrorResponse>,
     LoginFormValues
-  >(['useLogin'], login, {
+  >(['useLogin'], queryLogin, {
     onSuccess: () => refetch(),
     onError: () => {},
     retry: 0,

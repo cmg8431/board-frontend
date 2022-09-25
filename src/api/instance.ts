@@ -10,6 +10,7 @@ export const API_SUFFIX = {
   SEND_SMS: '/sms',
   CHECK_SMS_CODE: '/sms/verify',
   AUTH_REFRESH: '/auth/refresh/',
+  POST: '/post/',
 }
 
 export const instance = axios.create({

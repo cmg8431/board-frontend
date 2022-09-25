@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppLayout, TextField } from '~/components'
 import * as S from './styled'
 
 import { useLogin } from '~/hook'
 import { Button } from '~/components/Button'
+import { useNavigate } from 'react-router-dom'
 
 export const BoardPage: React.FC = () => {
   const { profile, isLoading } = useLogin()
+  const navigate = useNavigate()
   const [input, setInput] = useState<string>('')
 
   //   const filtered =
@@ -18,9 +20,19 @@ export const BoardPage: React.FC = () => {
   //         })
   //       : null
 
+  useEffect(() => {
+    if (profile && !isLoading) {
+      console.log('하이')
+    }
+  }, [profile, isLoading])
+
   return (
     <AppLayout padding={{ padding: '20px 0' }}>
-      <h1>대시판</h1>
+      {profile && !isLoading ? (
+        <h1>{profile?.name}님 환영합니다!</h1>
+      ) : (
+        <h1>대시판</h1>
+      )}
       <S.CategoryCotainer>
         <S.Category>전체</S.Category>
         <S.Category>ETC</S.Category>
@@ -58,6 +70,7 @@ export const BoardPage: React.FC = () => {
         <Button
           style={{ height: '5.3rem', borderRadius: '100rem' }}
           variant="contained"
+          onClick={() => navigate('create-post')}
         >
           게시물 생성하기
         </Button>

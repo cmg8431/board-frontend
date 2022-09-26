@@ -16,6 +16,21 @@ export const deletePost = async (pk: any) => {
   return data
 }
 
+export const updatePost = async (post: any) => {
+  console.log(post)
+  const { data } = await instance.put<APIResponse<any>>(
+    `${API_SUFFIX.POST}${post.id}/`,
+    {
+      title: post.title,
+      content: post.content,
+      category: post.category,
+      photo: post.photo,
+      status: post.status,
+    }
+  )
+  return data
+}
+
 export const post = async () => {
   const { data } = await instance.get<APIResponse<any>>(API_SUFFIX.POST)
   return data

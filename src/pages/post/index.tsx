@@ -46,7 +46,11 @@ export const PostPage: React.FC = () => {
       </S.Cotnent>
       {post?.author?.id === profile?.id ? (
         <div>
-          <Button variant="contained" style={{ marginBottom: '1.5rem' }}>
+          <Button
+            onClick={() => navigate('/edit-post', { state: post.id })}
+            variant="contained"
+            style={{ marginBottom: '1.5rem' }}
+          >
             수정하기
           </Button>
           <Button onClick={handleOnPressLogoutButton} variant="outlined">

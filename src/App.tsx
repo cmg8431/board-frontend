@@ -7,6 +7,7 @@ import {
   RegisterPage,
   PostPage,
 } from './pages'
+import { EditPostPage } from './pages/edit-post'
 
 export const App = () => {
   return (
@@ -15,6 +16,7 @@ export const App = () => {
         <Route index element={<BoardPage />} />
         <Route path="post" element={<PostPage />} />
         <Route path="create-post" element={<CreatePostPage />} />
+        <Route path="edit-post" element={<EditPostPage />} />
         <Route path="auth">
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />

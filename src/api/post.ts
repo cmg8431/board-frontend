@@ -9,6 +9,13 @@ export const createPost = async (props: any) => {
   return data
 }
 
+export const deletePost = async (pk: any) => {
+  const { data } = await instance.delete<APIResponse<any>>(
+    `${API_SUFFIX.POST}${pk}/`
+  )
+  return data
+}
+
 export const post = async () => {
   const { data } = await instance.get<APIResponse<any>>(API_SUFFIX.POST)
   return data

@@ -57,8 +57,21 @@ export const useLogin = () => {
     AxiosError<APIErrorResponse>,
     LoginFormValues
   >(['useLogin'], queryLogin, {
-    onSuccess: () => refetch(),
-    onError: () => {},
+    onSuccess: () => {
+      refetch()
+      return toast.success('로그인에 성공하셨어요!', {
+        autoClose: 3000,
+        position: toast.POSITION.BOTTOM_RIGHT,
+        theme: 'dark',
+      })
+    },
+    onError: () => {
+      return toast.error('로그인에 실패하셨어요!', {
+        autoClose: 3000,
+        position: toast.POSITION.BOTTOM_RIGHT,
+        theme: 'dark',
+      })
+    },
     retry: 0,
   })
 
@@ -120,21 +133,9 @@ export const useProfile = () => {
       return result
     },
     {
-      onSuccess: (profile) => {
-        toast.success('로그인에 성공하셨습니다.', {
-          autoClose: 3000,
-          position: toast.POSITION.TOP_CENTER,
-          theme: 'light',
-        })
-      },
       onError: (error) => {
         setGlobalAccessToken('')
         setAPIAccessToken(null)
-        toast.error('로그인 실패에 실패하셨습니다.', {
-          autoClose: 3000,
-          position: toast.POSITION.TOP_CENTER,
-          theme: 'light',
-        })
       },
       retry: 0,
       staleTime: 60 * 60 * 10,

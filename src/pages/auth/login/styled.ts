@@ -36,6 +36,7 @@ export const Typography1 = styled(Typography)`
   margin-left: 1rem;
   letter-spacing: -0.12rem;
   color: var(--color-graublue-500);
+  cursor: 'pointer';
 `
 
 export const ButtonWrapper = styled.div`
@@ -47,6 +48,6 @@ export const ButtonWrapper = styled.div`
   }
 `
 
-export const FooterInfoWrapper = styled(Typography)`
+export const FooterInfoWrapper = styled(Typography)<any>`
   font-size: 1.4rem;
 `

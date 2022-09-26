@@ -27,7 +27,7 @@ export const FooterSection = styled.section`
   align-items: center;
   margin-top: 8rem;
 `
-export const Typography1 = styled(Typography)`
+export const Typography1 = styled(Typography)<any>`
   font-size: 1.5rem;
   margin-left: 1rem;
   letter-spacing: -0.12rem;

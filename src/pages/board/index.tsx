@@ -7,13 +7,23 @@ import { useLogin } from '~/hook'
 import { Button } from '~/components/Button'
 import { useNavigate } from 'react-router-dom'
 import { useAllPost } from '~/hook/query/usePost'
+import { setAPIAccessToken } from '~/api'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const BoardPage: React.FC = () => {
   const { profile, isLoading } = useLogin()
   const navigate = useNavigate()
   const [input, setInput] = useState<string>('')
+  const queryClient = useQueryClient()
 
   const { data: post } = useAllPost()
+
+  const clearRefreshToken = async () => {
+    queryClient.getQueryCache().clear()
+    setAPIAccessToken('')
+    await localStorage.setItem('@token', '')
+    window.location.replace('/')
+  }
 
   const filtered = post?.filter((v: { title: string }) => {
     return v.title.toUpperCase().includes(input.toUpperCase())
@@ -22,9 +32,22 @@ export const BoardPage: React.FC = () => {
   return (
     <AppLayout padding={{ padding: '20px 0' }}>
       {profile && !isLoading ? (
-        <h1>{profile?.name}님 환영합니다!</h1>
+        <>
+          <h1>{profile?.name}님 환영합니다!</h1>
+          <div style={{ cursor: 'pointer' }} onClick={clearRefreshToken}>
+            로그아웃
+          </div>
+        </>
       ) : (
-        <h1>대시판</h1>
+        <>
+          <h1>대시판</h1>
+          <div
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/auth/login')}
+          >
+            로그인
+          </div>
+        </>
       )}
       <S.CategoryCotainer>
         <S.Category>전체</S.Category>

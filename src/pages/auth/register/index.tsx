@@ -215,7 +215,13 @@ export const RegisterPage: React.FC = () => {
             style={{ width: '0.6rem' }}
             src="https://dimipay-gateway.netlify.app/assets/leftArrow.94445445.svg"
           />
-          <S.Typography1 type="regular">메인 게시판 화면으로</S.Typography1>
+          <S.Typography1
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/')}
+            type="regular"
+          >
+            메인 게시판 화면으로
+          </S.Typography1>
         </S.FooterSection>
       </S.BodySection>
       <div>.</div>
